@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>115學年度 國際產業人才教育碩士專班｜重要事項</title>
+<meta name="description" content="朝陽科技大學 資訊與通訊系 國際產業人才教育碩士專班（INTENSE）重要事項 / CYUT Dept. of ICE INTENSE Master's Program Key Notices">
+<link rel="icon" href="images/favicon.png">
+<style>
+  :root{--green:#3f3891;--bg:#efeef7}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:system-ui,-apple-system,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+       background:var(--bg);color:#333;min-height:100vh}
+  .bar{position:sticky;top:0;z-index:10;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;
+       padding:14px 16px;background:rgba(239,238,247,.9);backdrop-filter:blur(8px)}
+  .toggle{display:flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 3px 14px rgba(0,0,0,.1)}
+  .toggle button{border:0;background:none;font:600 15px/1 inherit;font-family:inherit;padding:10px 22px;
+       border-radius:999px;cursor:pointer;color:#666;transition:.2s}
+  .toggle button.on{background:var(--green);color:#fff}
+  .dl{display:flex;align-items:center;gap:6px;background:#fff;color:var(--green);text-decoration:none;
+      font-weight:600;font-size:15px;padding:10px 18px;border-radius:999px;box-shadow:0 3px 14px rgba(0,0,0,.1)}
+  .dl:hover{background:var(--green);color:#fff}
+  main{max-width:900px;margin:8px auto 40px;padding:0 12px}
+  .poster{position:relative;aspect-ratio:2480/3508;background:#fff;border-radius:12px;overflow:hidden;
+          box-shadow:0 10px 40px rgba(0,0,0,.1)}
+  .poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;transition:opacity .35s}
+  .poster img.hide{opacity:0;pointer-events:none}
+  .poster a{position:absolute;inset:0;display:block}
+  footer{text-align:center;font-size:12px;color:#999;padding-bottom:28px}
+  @media (max-width:600px){ main{padding:0} .poster{border-radius:0} }
+  @media print{ .bar,footer{display:none} main{margin:0;max-width:none;padding:0} .poster{box-shadow:none;border-radius:0} }
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="toggle" role="group" aria-label="Language">
+    <button type="button" data-l="zh">中文</button>
+    <button type="button" data-l="en">English</button>
+  </div>
+  <a class="dl" id="dl" href="images/notice-zh.png?v=1" download>⬇ <span id="dlText">下載圖片</span></a>
+</div>
+
+<main>
+  <div class="poster">
+    <a id="link-zh" href="images/notice-zh.png?v=1" target="_blank" rel="noopener">
+      <picture><source srcset="images/notice-zh.webp?v=1" type="image/webp">
+      <img id="img-zh" src="images/notice-zh.png?v=1" alt="115學年度 國際產業人才教育碩士專班 重要事項"></picture>
+    </a>
+    <a id="link-en" href="images/notice-en.png?v=1" target="_blank" rel="noopener">
+      <picture><source srcset="images/notice-en.webp?v=1" type="image/webp">
+      <img id="img-en" src="images/notice-en.png?v=1" alt="Academic Year 2026–27 INTENSE Master's Program Key Notices" loading="lazy"></picture>
+    </a>
+  </div>
+</main>
+<footer>© Dept. of ICE, Chaoyang University of Technology</footer>
+
+<script>
+const TXT = {
+  zh:{title:"115學年度 國際產業人才教育碩士專班｜重要事項", dl:"下載圖片", lang:"zh-Hant"},
+  en:{title:"Academic Year 2026–27 · INTENSE Master's Program | Key Notices", dl:"Download", lang:"en"}
+};
+function show(l){
+  ["zh","en"].forEach(k=>{
+    const on = k===l;
+    document.getElementById("img-"+k).classList.toggle("hide", !on);
+    document.getElementById("link-"+k).style.visibility = on ? "visible" : "hidden";
+  });
+  document.querySelectorAll(".toggle button").forEach(b=>b.classList.toggle("on", b.dataset.l===l));
+  document.getElementById("dl").href = `images/notice-${l}.png?v=1`;
+  document.getElementById("dlText").textContent = TXT[l].dl;
+  document.title = TXT[l].title;
+  document.documentElement.lang = TXT[l].lang;
+  try{ const u=new URL(location); u.searchParams.set("lang",l); history.replaceState(null,"",u); }catch(e){}
+}
+document.querySelectorAll(".toggle button").forEach(b=>b.onclick=()=>show(b.dataset.l));
+const q = new URLSearchParams(location.search).get("lang");
+show(q==="en"||q==="zh" ? q : (navigator.language||"").toLowerCase().startsWith("zh") ? "zh" : "en");
+</script>
+</body>
+</html>
